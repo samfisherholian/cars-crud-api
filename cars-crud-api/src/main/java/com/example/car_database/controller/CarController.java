@@ -20,13 +20,16 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.car_database.dto.CarDTO;
+import com.example.car_database.dto.CarPageDto;
 import com.example.car_database.model.Car;
 import com.example.car_database.repository.CarRepository;
 import com.example.car_database.service.CarService;
 
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.PositiveOrZero;
 
 @Validated
 @RestController
@@ -48,6 +51,16 @@ public class CarController {
 
 
     @GetMapping
+    public CarPageDto carList( @RequestParam(defaultValue = "0") @PositiveOrZero int page,@RequestParam(defaultValue = "10") @Positive @Max(100) int size){
+
+        //List<Car> car = carRepository.findAll();
+
+        return carService.carList(page, size);
+
+    }
+
+/* 
+ *     @GetMapping
     public List<CarDTO> carList(){
 
         //List<Car> car = carRepository.findAll();
@@ -55,6 +68,9 @@ public class CarController {
         return carService.carList();
 
     }
+ * 
+*/
+
 
     @PostMapping
     @ResponseStatus(code = HttpStatus.CREATED)

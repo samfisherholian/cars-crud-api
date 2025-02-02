@@ -17,7 +17,7 @@ public enum Category {
     @Override
     public String toString() {
         // TODO Auto-generated method stub
-        return this.value;
+        return value;
     }
 
 }
